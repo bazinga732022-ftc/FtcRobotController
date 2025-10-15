@@ -15,19 +15,23 @@ public class sensoris  {
 
         BLUE,
 
-        YELLOW,
+        GREEN,
+
+        verbol, //verde bola
+
+        robol, //roxo bola
 
         UNKNOWN
     }
 
     public DetectedColor  getCOR(Telemetry tl){
-        NormalizedRGBA opa = ronaldo.getNormalizedColors();
+        NormalizedRGBA normie = ronaldo.getNormalizedColors();
 
         float normRed,normGreen,normBlue;
 
-        normRed  = opa.red / opa.alpha;
-        normGreen = opa.green / opa.alpha;
-        normBlue = opa.blue / opa.alpha;
+        normRed  = normie.red / normie.alpha;
+        normGreen = normie.green / normie.alpha;
+        normBlue = normie.blue / normie.alpha;
 
         tl.addData("vermio", normRed);
         tl.addData("azuli", normBlue);
@@ -38,6 +42,7 @@ public class sensoris  {
         RED =
         BLUE =
         YELLOW =
+        roxo = {r = 1700, B = 3020, G = 2000}
          */
         return DetectedColor.UNKNOWN;
     }
