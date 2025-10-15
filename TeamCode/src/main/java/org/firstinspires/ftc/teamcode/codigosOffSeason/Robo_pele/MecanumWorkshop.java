@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.codigosOffSeason.Robo_pele;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class MecanumWorkshop extends OpMode {
     private DcMotor leftBack,leftFront,
-            rightBack,rightFront;
+            rightBack,rightFront, in, Out, bout;
     private IMU imu;
     @Override
     public void init() {
@@ -19,13 +20,15 @@ public class MecanumWorkshop extends OpMode {
         leftBack = hardwareMap.get(DcMotor.class,"leftBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class,"rightBack");
-        rightBack = hardwareMap.get(DcMotor.class,"rightBack");
+        in = hardwareMap.get(DcMotor.class, "in");
+        Out = hardwareMap.get(DcMotor.class, "Out");
+        bout = hardwareMap.get(DcMotor.class, "bout");
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         imu = hardwareMap.get(IMU.class,"imu");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
 
         imu.initialize(parameters);
 
@@ -34,16 +37,13 @@ public class MecanumWorkshop extends OpMode {
     @Override
     public void loop() {
         Meca();
+        Osintake();
     }
 
     public void Meca(){
-        double y =-gamepad1.left_stick_y;
+        double y = gamepad1.left_stick_y;
         double x = gamepad1.left_stick_x;
         double rx = gamepad1.right_stick_x;
-
-        y = Math.pow(y,3);
-        x = Math.pow(x, 3);
-        rx = Math.pow(rx,3);
 
         double AnguloRobo = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
 
@@ -61,5 +61,17 @@ public class MecanumWorkshop extends OpMode {
         leftBack.setPower(leftBackP );
         rightBack.setPower(rightBackP);
         rightFront.setPower(rightFrontP);
+    }
+    public void Osintake(){
+        if(gamepad1.a){
+            in.setPower(-1);
+        }else{
+            in.setPower(-.3);
+        }
+
+            Out.setPower(gamepad1.left_trigger);
+            telemetry.addData("sla", gamepad1.left_trigger);
+            bout.setPower(-1);
+
     }
 }
