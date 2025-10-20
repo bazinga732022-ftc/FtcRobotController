@@ -13,7 +13,7 @@ public class PidNaVel extends LinearOpMode {
     public double ticksAntigos, kp, ki, kd, kf, RPM, DesejoRPM;
     @Override
     public void runOpMode() {
-        DesejoRPM = 330;
+        DesejoRPM = 3000;
         PIDFController pidf = new PIDFController(kp, ki, kd, kf);
         teste = hardwareMap.get(DcMotor.class, "testes");
         teste.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -33,6 +33,6 @@ public class PidNaVel extends LinearOpMode {
         telemetry.addData("RPM", RPM);
 
         ticksAntigos = ticksAtuais;
-        sleep(100);
+        sleep(1000);
     }
 }
