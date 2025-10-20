@@ -16,8 +16,8 @@ public class PidNaVel extends LinearOpMode {
         DesejoRPM = 330;
         PIDFController pidf = new PIDFController(kp, ki, kd, kf);
         teste = hardwareMap.get(DcMotor.class, "testes");
-        teste.setMode(DcMotor.RunMode.RESET_ENCODERS);
-        teste.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        teste.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        teste.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         waitForStart();
         while(opModeIsActive()){
